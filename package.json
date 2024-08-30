@@ -14,6 +14,7 @@
     "build": "tsc",
     "start": "node dist/src/index",
     "start:dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "dev": "npx ts-node src/index.ts",
     "pretest": "npm run build",
     "test": "mocha dist/test/**/*.js",
     "test:dev": "ts-mocha test/**/*.spec.ts -w --watch-files '**/*.ts'",
@@ -23,8 +24,9 @@
     "@types/chai": "^4.3.4",
     "@types/lodash": "^4.14.188",
     "@types/mocha": "^10.0.0",
-    "@types/node": "^18.11.9",
+    "@types/node": "^18.19.47",
     "@types/sinon": "^10.0.13",
+    "@types/superagent": "^8.1.9",
     "@typescript-eslint/eslint-plugin": "^5.42.1",
     "@typescript-eslint/parser": "^5.42.1",
     "chai": "^4.3.7",
@@ -41,6 +43,10 @@
   },
   "dependencies": {
     "@solana/spl-token": "^0.4.8",
-    "@solana/web3.js": "^1.95.3"
+    "@solana/web3.js": "^1.95.3",
+    "axios": "^1.7.5",
+    "bignumber.js": "^9.1.2",
+    "dotenv": "^16.4.5",
+    "superagent": "^10.1.0"
   }
 }
