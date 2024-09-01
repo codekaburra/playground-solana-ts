@@ -18,16 +18,19 @@ export function generateNewKeyPair(): Keypair {
 }
 
 export function getKeyPairs(): Keypair[] {
-  return ["USER1_SECRET_KEY", "USER2_SECRET_KEY", "USER3_SECRET_KEY"].map(
-    (k) => {
-      const keypair = Keypair.fromSecretKey(
-        Uint8Array.from(JSON.parse(process.env[k]))
-      );
-      // console.log(keypair);
-      // console.log(keypair.publicKey.toBase58());
-      return keypair;
-    }
-  );
+  return [
+    "PROGRAM_DEPLOYER_SECRET_KEY",
+    "USER1_SECRET_KEY",
+    "USER2_SECRET_KEY",
+    "USER3_SECRET_KEY",
+  ].map((k) => {
+    const keypair = Keypair.fromSecretKey(
+      Uint8Array.from(JSON.parse(process.env[k]))
+    );
+    // console.log(keypair);
+    // console.log(keypair.publicKey.toBase58());
+    return keypair;
+  });
 }
 
 export async function broadcast(

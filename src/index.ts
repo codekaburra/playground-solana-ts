@@ -4,22 +4,30 @@ import {
   Connection,
   Transaction,
   SystemProgram,
+  TransactionInstruction,
+  PublicKey,
 } from "@solana/web3.js";
-import { broadcast, getKeyPairs, toBaseUnit } from "./utils";
+import {
+  broadcast,
+  generateNewKeyPair,
+  getKeyPairs,
+  toBaseUnit,
+} from "./utils";
 import { getAccountNativeBalance } from "./api/rpc";
+import * as borsh from "@coral-xyz/borsh";
 
 main();
 
 async function main(): Promise<void> {
   try {
-    // generateNewKeyPair();
-    const keypairs = getKeyPairs();
-    const [user1, user2, emptyAccount] = keypairs;
-    const connection = new Connection(clusterApiUrl("devnet"));
-    console.log(" ------------------------------------ ");
+    generateNewKeyPair();
+    // const keypairs = getKeyPairs();
+    // const [deployer, user1, user2, emptyAccount] = keypairs;
+    // const connection = new Connection(clusterApiUrl("devnet"));
+    // console.log(" ------------------------------------ ");
 
-    const tx = buildTransferTransaction();
-    await broadcast(connection, tx, [user1]);
+    // const tx = buildTransferTransaction();
+    // await broadcast(connection, tx, [user1]);
   } catch (error) {
     console.log(error);
   }
@@ -36,9 +44,32 @@ export async function checkAccountBalance() {
   }
 }
 
+// export async function callCustomProgram() {
+//   const [_, user1] = getKeyPairs();
+
+//   const instruction = new TransactionInstruction({
+//     keys: [
+//       {
+//         name: "initializeCounter",
+//         accounts: [
+//           { name: "payer", isMut: true, isSigner: true },
+//           { name: "counter", isMut: true, isSigner: true },
+//           { name: "systemProgram", isMut: false, isSigner: false },
+//         ],
+//         args: [],
+//       },
+//     ],
+//     programId: new PublicKey(process.env.PROGRAM_ID_COUNTER),
+//     data: Buffer.alloc(0),
+//   });
+//   const tx = new Transaction().add(instruction);
+//   tx.feePayer = user1.publicKey;
+//   return tx;
+// }
+
 export function buildTransferTransaction(): Transaction {
   try {
-    const [user1, user2] = getKeyPairs();
+    const [_, user1, user2] = getKeyPairs();
     const tx = new Transaction().add(
       SystemProgram.transfer({
         fromPubkey: user1.publicKey,
